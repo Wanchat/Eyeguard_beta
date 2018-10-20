@@ -2,10 +2,7 @@ import cv2
 
 class Extend_face_haar:
     def __init__(self):
-        self.face_detect = cv2.CascadeClassifier(
-            r"C:\Users\Wanch\Google Drive\Thesis"
-            r"\code_eyeguard\Eyeguard\data"
-            r"\haarcascade_frontalface_default.xml")
+        self.face_detect = cv2.CascadeClassifier(r"..\data\haarcascade_frontalface_default.xml")
 
     def extend_face(self,image_gray):
 
@@ -37,8 +34,10 @@ if __name__ == '__main__':
             pass
 
         cv2.imshow("frame", frame)
-        if cv2.waitKey(1) & 0xFF == 27:
+        cv2.waitKey(1)
+        if cv2.getWindowProperty("frame", 1) == -1:
             break
+
     
     cap.release()
     cv2.destroyAllWindows()

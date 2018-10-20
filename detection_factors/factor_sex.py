@@ -1,5 +1,4 @@
 import sys
-
 import dlib
 import cv2
 from keras.preprocessing.image import img_to_array
@@ -9,7 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QApplication, QLabel
 
 
 class Sex:
-    def __init__(self, model=r"C:\Users\Wanch\Google Drive\Thesis\code_eyeguard\Eyeguard\main\sex_25.model"):
+    def __init__(self, model=r"..\data\sex_25.model"):
         self.madel_age = load_model(model)
     def estimate_sex(self, window_face):
         self.window_face = cv2.resize(window_face, (28, 28))
@@ -59,7 +58,7 @@ class App(QMainWindow):
     def play(self):
         self.start = False
         face_detect = cv2.CascadeClassifier(
-            "haarcascade_frontalface_default.xml")
+            r"..\data\haarcascade_frontalface_default.xml")
         cap = cv2.VideoCapture(0)
         sex_class = Sex()
         frame_number = 0
@@ -83,6 +82,8 @@ class App(QMainWindow):
                     print(self.sex[0])
             cv2.imshow("Frame", frame)
             cv2.waitKey(1)
+            if cv2.getWindowProperty("Frame", 1) == -1:
+                break
 
         cap.release()
         cv2.destroyAllWindows()

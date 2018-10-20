@@ -1,14 +1,13 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel, QApplication, QPushButton, QFrame, \
     QGraphicsDropShadowEffect
-from PyQt5.QtGui import QIcon, QPainter, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt
 import sys
 import cv2, numpy as np
-from queue import Queue
 import time
-from detection_factors.extend_eye import Extand_eyes
-from detection_factors.extend_face_haar import Extend_face_haar
-from detection_factors.popup import Popup
+from helper.extend_eye import Extand_eyes
+from helper.extend_face_haar import Extend_face_haar
+from helper.popup import Popup
 from detection_factors.factor_time import Time_detect_rule
 from detection_factors.factor_angle import Angle
 from detection_factors.factor_distance import Distance
@@ -16,6 +15,7 @@ from detection_factors.factor_blink import Blink_cnn, Blinking
 from detection_factors.factor_sex import Sex
 from detection_factors.factor_older import Age
 from detection_factors.factor_brightness import Brightness
+from queue import Queue
 
 # My App =================================================================
 class Myapp(QMainWindow):
@@ -47,7 +47,7 @@ class Myapp(QMainWindow):
         self.setGeometry(100, 100, 440, 500)
         self.setStyleSheet("border-color: white")
         self.setWindowTitle("Eyeguard")
-        self.setWindowIcon(QIcon(r'image\icon_eyeguard.png'))
+        self.setWindowIcon(QIcon(r'icon\icon_eyeguard.png'))
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.WindowMinimizeButtonHint)
 
         self.label_frame = QLabel(self) # Label show frame numbers camera
@@ -138,7 +138,7 @@ class Myapp(QMainWindow):
         self.imageGround.setGeometry(0, 60, 440, 440)
         self.imageGround.setStyleSheet("background-color: #0086FF;")
         self.logoGround.setGeometry(140, 140, 160, 160)
-        self.logoGround.setPixmap(QPixmap(r'image\background_2.png'))
+        self.logoGround.setPixmap(QPixmap(r'icon\background_2.png'))
         # self.frame_factor.hide()
         self.image_function()
         self.btn_function()
@@ -146,18 +146,18 @@ class Myapp(QMainWindow):
     def btn_function(self):
         self.btn_start.setGeometry(360, 15, 59, 30)
         self.btn_start.setStyleSheet("""
-                QPushButton{border-image: url('image/btOFF.png');}
-                QPushButton:hover{border-image: url('image/btOFF_hover.png');}
+                QPushButton{border-image: url('icon/btOFF.png');}
+                QPushButton:hover{border-image: url('icon/btOFF_hover.png');}
                 """)
         self.btn_start.show()
         self.btn_start.setCheckable(True)
         self.btn_start.clicked[bool].connect(self.event_start_stop)
     def image_function(self):
         self.imag_c = QLabel(self.tab_top)
-        self.imag_c.setPixmap(QPixmap(r'image/logo-c.png'))
+        self.imag_c.setPixmap(QPixmap(r'icon/logo-c.png'))
         self.imag_c.setGeometry(5, 0, 60, 60)
         self.image_name = QLabel(self.tab_top)
-        self.image_name.setPixmap(QPixmap(r'image/band.png'))
+        self.image_name.setPixmap(QPixmap(r'icon/band.png'))
         self.image_name.setGeometry(65, 8, 80, 30)
     def label_function(self):
         self.l_name = QLabel(self.tab_top)
@@ -218,7 +218,7 @@ class Myapp(QMainWindow):
                       "older_on",
                       "bright_on"]
 
-        icon = [r'image\{}.png'.format(icon) for icon in image_icon] # Call path icon
+        icon = [r'icon\{}.png'.format(icon) for icon in image_icon] # Call path icon
 
         for i, j in enumerate(icon):
             self.image_value(j, self.bt_factor[i]) # Loop icon image in bt_factors
@@ -257,6 +257,7 @@ class Myapp(QMainWindow):
             self.tex_time.setText(timeset)
         except:
             pass
+
         print(timeset)
 
 
@@ -346,7 +347,7 @@ class Myapp(QMainWindow):
         if event:
             print("start")
             self.btn_start.setStyleSheet("""
-                            QPushButton{border-image: url('image/btON.png');}
+                            QPushButton{border-image: url('icon/btON.png');}
                             """)
             self.imageGround.hide()
             self.frame_factor.show()
@@ -377,8 +378,8 @@ class Myapp(QMainWindow):
         else:
             print("stop")
             self.btn_start.setStyleSheet("""
-                            QPushButton{border-image: url('image/btOFF.png');}
-                            QPushButton:hover{border-image: url('image/btOFF_hover.png');}
+                            QPushButton{border-image: url('icon/btOFF.png');}
+                            QPushButton:hover{border-image: url('icon/btOFF_hover.png');}
                             """)
             self.imageGround.show()
             self.frame_factor.hide()

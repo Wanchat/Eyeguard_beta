@@ -1,6 +1,6 @@
-from math_eyeguarde import Math_eyeguarde
-from canculator_angle import Pixel_to_Angle
-from extend_eye import Extand_eyes
+from helper.math_eyeguarde import Math_eyeguarde
+from helper.canculator_angle import Pixel_to_Angle
+from helper.extend_eye import Extand_eyes
 import math
 import cv2
 import sys
@@ -59,7 +59,7 @@ if __name__ == '__main__':
         toaster.show_toast("DISTANCE RISK",
             "you view {} screen {:.0f} cm".format(
                     item_view ,item_distance),
-                icon_path="logo_eyeguard.ico",
+                icon_path= r"..\data\logo_eyeguard.ico",
                 duration=2)
     def start_notific_distance(distance, view):
         q_distance.put(distance)

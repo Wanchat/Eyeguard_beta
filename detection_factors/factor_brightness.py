@@ -7,6 +7,7 @@ class Brightness:
         self.avg_gray = np.average(image)
         self.avg_gray = round(self.avg_gray)
         return self.avg_gray
+
     def brightness(self, image_gray): # Bright screen vs light avg
         self.var_brightness = 100 # max light is 255
         if 200 > self.avg_gray >= 140:
@@ -26,6 +27,7 @@ class Brightness:
         else:
             self.var_brightness = 100
         return self.var_brightness
+
     def change_screen(self,v_brightness): # Change screen display
         wmi.WMI(namespace='wmi').WmiMonitorBrightnessMethods()[0].WmiSetBrightness(v_brightness, 1)
 
@@ -36,11 +38,12 @@ if __name__ == '__main__':
         _, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         array = bright.array_gray(gray) # Avg black white
-        bright_if = bright.brightness(array) # bright screen vs light avg
+        bright_if = bright.brightness(array) # Bright screen vs light avg
         bright.change_screen(bright_if) #Change screen display
         print("bright: {} screen: {}".format(bright_if, array))
         cv2.imshow("Frame", frame)
-        if cv2.waitKey(1) == 27:
+        cv2.waitKey(1)
+        if cv2.getWindowProperty("Frame", 1) == -1:
             break
     cap.release()
     cv2.destroyAllWindows()

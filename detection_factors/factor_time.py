@@ -1,5 +1,5 @@
 import cv2, numpy as np
-from extend_face_haar import Extend_face_haar
+from helper.extend_face_haar import Extend_face_haar
 import time
 
 class Time_detect:
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     def notific_20_minutes():
         toaster.show_toast("TIME RISK",
             "you watching sceen over 20 minutes",
-                icon_path="logo_eyeguard.ico",
+                icon_path=r"..\data\logo_eyeguard.ico",
                 duration=8)
     def start_notific_20_minutes():
         th_20second = Thread(target=notific_20_minutes)
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     def notific_2_hours():
         toaster.show_toast("TIME RISK",
             "you watching sceen over 2 hours",
-                icon_path="logo_eyeguard.ico",
+                icon_path=r"..\data\logo_eyeguard.ico",
                 duration=8)
     def start_notific_2_hours():
         th_2hours = Thread(target=notific_20_minutes)

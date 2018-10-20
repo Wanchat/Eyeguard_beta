@@ -1,4 +1,3 @@
-import dlib
 import cv2
 from keras.preprocessing.image import img_to_array
 from keras.models import load_model
@@ -6,15 +5,14 @@ import numpy as np
 import os
 import sys
 import pyautogui
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel,\
-    QBoxLayout,QHBoxLayout,QGridLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
-from style import Style
+from helper.style import Style
 
 class Age:
-    def __init__(self,model="age_50.model"):
+    def __init__(self,model=r"..\data\age_50.model"):
         self.madel_age = load_model(model)
         self.alert = False
         self.frame = 0
@@ -76,7 +74,7 @@ class Pip_alert_age(QWidget):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setWindowIcon(QIcon(
-            r'D:\code_python\Eyeguard\data\icon_eyeguard.png'))
+            r'..\data\icon_eyeguard.png'))
         self.setWindowFlags(Qt.WindowCloseButtonHint)
         self.setGeometry(self.left, self.top, self.width, self.height)
         label_1 = QLabel(self.text,self)
@@ -117,7 +115,7 @@ if __name__ == '__main__':
             pass
 
     face_detect = cv2.CascadeClassifier(
-            "haarcascade_frontalface_default.xml")
+            r"..\data\haarcascade_frontalface_default.xml")
     cap = cv2.VideoCapture(0)
     age_class = Age()
     frame_number = 0
@@ -143,7 +141,7 @@ if __name__ == '__main__':
         print(Older)
         chage_screen(older) # Function change screen
         cv2.imshow("Frame", frame)
-        if cv2.waitKey(1) == 27:
+        if cv2.getWindowProperty("Frame", 1) == -1:
             break
     cap.release()
     cv2.destroyAllWindows()

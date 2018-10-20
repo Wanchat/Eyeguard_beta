@@ -13,7 +13,7 @@ class Extand_eyes:
 
         # dlib function call model
         self.detector = dlib.get_frontal_face_detector()
-        self.predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+        self.predictor = dlib.shape_predictor(r'..\data\shape_predictor_68_face_landmarks.dat')
 
         # indexes facial landmarks
         (self.left_eye_Start, self.left_eye_End) = \
@@ -88,10 +88,8 @@ if __name__ == '__main__':
             point_center_y = int(image["point_center_y"])
             cv2.circle(frame, (point_center_x , point_center_y), 2, (0, 255, 0), -1)
 
-
-        cv2.imshow("frame", frame)
-        if cv2.waitKey(1) & 0xFF == ord("q"):
+        cv2.waitKey(1)
+        if cv2.getWindowProperty('frame', 1) == -1:
             break
-
     cap.release()
     cv2.destroyAllWindows()

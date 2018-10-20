@@ -1,15 +1,15 @@
 import cv2
-from extend_eye import Extand_eyes
+from helper.extend_eye import Extand_eyes
 import numpy as np
 from keras.preprocessing.image import img_to_array
 from keras.models import load_model
-import imutils
 import time
+from queue import Queue
+from win10toast import ToastNotifier
+import imutils
 import sys
 import os
-from queue import Queue
 from threading import Thread
-from win10toast import ToastNotifier
 
 q_risk = Queue()
 q_blilnk = Queue()
@@ -133,7 +133,7 @@ class Blinking:
         blink_item = q_blink.get()
         popup.show_toast("BLINKINK RISK",
             "{} blink/min you blinkink less".format(blink_item),
-            icon_path="logo_eyeguard.ico",
+            icon_path= r"..\data\logo_eyeguard.ico",
             duration=2)
 
     def start_notific_blink(self): # Start threading popup
@@ -151,7 +151,7 @@ if __name__ == '__main__':
     q_blilnk = Queue()
     popup = ToastNotifier()
 
-    model_path="blink.model"
+    model_path= r"..\data\blink.model"
     extend_eye_point = Extand_eyes()
     blink_cnn = Blink_cnn(model_path)
     blinking = Blinking()
@@ -189,9 +189,6 @@ if __name__ == '__main__':
                 face_status = 'no face'
             blink_count = blinking.predict_eye_blinking(blink_classify)
             print('{} >> {}'.format(face_status, blink_count))
-            cv2.imshow("frame", frame)
-            if cv2.waitKey(1) == 27:
-                break
             if cv2.getWindowProperty('frame', 1) == -1:
                 break
         cap.release()

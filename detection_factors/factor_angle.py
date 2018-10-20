@@ -1,7 +1,7 @@
 import math
-from math_eyeguarde import Math_eyeguarde
-from canculator_angle import Pixel_to_Angle
-from extend_eye import Extand_eyes
+from helper.math_eyeguarde import Math_eyeguarde
+from helper.canculator_angle import Pixel_to_Angle
+from helper.extend_eye import Extand_eyes
 import cv2
 
 class Angle:
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         toaster.show_toast("ANGLE RISK",
             "you view {} screen {:.0f} degree".format(
                 item_angel_ot ,item_angel),
-                icon_path="logo_eyeguard.ico",
+                icon_path= r"..\data\logo_eyeguard.ico",
                 duration=2)
     def start_notific(angle, angle_ot):
         q_angle.put(angle)
